@@ -17,35 +17,62 @@ namespace MethodsExercise
 
             Console.WriteLine($"Once upon a time, {name} was walking through the forest. Suddenly, a {favColor} {favAnimal} appeared. {name} was so scared, but then the {favColor} {favAnimal} started singing {favBand} songs. {name} was so happy and started dancing with the {favColor} {favAnimal}. The end.");
 
-            // Math operations
-            Console.WriteLine(Add(5, 5));
-            Console.WriteLine(Subtract(10, 5));
-            Console.WriteLine(Multiply(5, 5));
-            Console.WriteLine(Divide(10, 2));
+            Console.WriteLine(Sum(2, 4));
+            Console.WriteLine(Sum(2, 4, 6));
+            Console.WriteLine(Sum(1, 1, 1, 1, 1));
+            Console.WriteLine(Subtract(10, 3, 2));
+            Console.WriteLine(Multiply(2, 3, 4));
+            Console.WriteLine(Divide(100, 2, 5));
         }
 
-        public static int Add(int num1, int num2)
+        public static int Sum(params int[] numbers)
         {
-            return num1 + num2;
-        }
-
-        public static int Subtract(int num1, int num2)
-        {
-            return num1 - num2;
-        }
-
-        public static int Multiply(int num1, int num2)
-        {
-            return num1 * num2;
-        }
-
-        public static int Divide(int num1, int num2)
-        {
-            if (num2 == 0)
+            int sum = 0;
+            foreach (int num in numbers)
             {
-                throw new DivideByZeroException("Cannot divide by zero.");
+                sum += num;
             }
-            return num1 / num2;
+            return sum;
+        }
+
+        public static int Subtract(params int[] numbers)
+        {
+            if (numbers.Length == 0) throw new ArgumentException("At least one number is required");
+
+            int result = numbers[0];
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                result -= numbers[i];
+            }
+            return result;
+        }
+
+        public static int Multiply(params int[] numbers)
+        {
+            if (numbers.Length == 0) throw new ArgumentException("At least one number is required");
+
+            int product = numbers[0];
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                product *= numbers[i];
+            }
+            return product;
+        }
+
+        public static int Divide(params int[] numbers)
+        {
+            if (numbers.Length == 0) throw new ArgumentException("At least one number is required");
+
+            int result = numbers[0];
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                if (numbers[i] == 0)
+                {
+                    throw new DivideByZeroException("Cannot divide by zero.");
+                }
+                result /= numbers[i];
+            }
+            return result;
         }
     }
 }
